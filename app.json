@@ -1,0 +1,77 @@
+{
+  "expo": {
+    "name": "Visit Bogotá",
+    "slug": "bogota_app",
+    "version": "3.4.3",
+    "orientation": "portrait",
+    "scheme": "com.idt.bogota-app",
+    "userInterfaceStyle": "automatic",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#35498e"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.servinf.idtturismo",
+      "buildNumber": "1.0.1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.servinf.test.bogotadctravel",
+      "versionCode": 173,
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#35498e"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permite a a $(PRODUCT_NAME) usar tu ubicación. Lo usará para mostrarte atractivos turísticos cercanos y mejorar la experiencia del turismo en Bogotá.",
+          "locationAlwaysPermission": "Permite a a $(PRODUCT_NAME) usar tu ubicación. Lo usará para mostrarte atractivos turísticos cercanos y mejorar la experiencia del turismo en Bogotá.",
+          "locationWhenInUsePermission": "Permite a a $(PRODUCT_NAME) usar tu ubicación. Lo usará para mostrarte atractivos turísticos cercanos y mejorar la experiencia del turismo en Bogotá."
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+        }
+      ],
+      "expo-font",
+      "expo-video",
+      "expo-web-browser",
+      "expo-audio",
+      "expo-asset"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "012d20fc-9e81-4211-8187-68358b1fa40a"
+      }
+    }
+  }
+}
