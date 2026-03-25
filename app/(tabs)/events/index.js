@@ -177,8 +177,8 @@ const CustomModal = ({
               <Text style={styles.dateButtonText}>
                 {startDate
                   ? startDate.toLocaleDateString(
-                      actualLanguage == "es" ? "es-ES" : "en-US"
-                    )
+                    actualLanguage == "es" ? "es-ES" : "en-US"
+                  )
                   : "Seleccionar fecha de inicio"}
               </Text>
             </Pressable>
@@ -202,8 +202,8 @@ const CustomModal = ({
               <Text style={styles.dateButtonText}>
                 {endDate
                   ? endDate.toLocaleDateString(
-                      actualLanguage == "es" ? "es-ES" : "en-US"
-                    )
+                    actualLanguage == "es" ? "es-ES" : "en-US"
+                  )
                   : "Seleccionar fecha de finalización"}
               </Text>
             </Pressable>
@@ -560,11 +560,10 @@ const EventsList = () => {
             place={item.field_place}
             start={item.field_date}
             end={item.field_end_date}
-            image={`https://files.visitbogota.co${
-              item.field_imagen_listado_events
+            image={`https://files.visitbogota.co${item.field_imagen_listado_events
                 ? item.field_imagen_listado_events
                 : "/img/noimg.png"
-            }`}
+              }`}
           />
         )}
       />

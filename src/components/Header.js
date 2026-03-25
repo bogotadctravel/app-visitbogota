@@ -583,7 +583,7 @@ const Header = ({ navigation, route, options }) => {
                 >
                   <Image
                     source={{
-                      uri: "https://visitbogota.co/chatbot/sticker/asisstant2.webp",
+                      uri: "https://visitbogota.co/chatbot/sticker/asisstant3.webp",
                     }}
                     style={{
                       width: 40,
@@ -669,13 +669,13 @@ const Header = ({ navigation, route, options }) => {
   const pathname = usePathname();
   const backgroundColor =
     pathname === "/" ||
-    pathname === "/descubre" ||
-    pathname === "/events" ||
-    pathname === "/atractivos" ||
-    pathname === "/audioguias" ||
-    pathname === "/rutas" ||
-    pathname === "/planes" ||
-    pathname === "/blog"
+      pathname === "/descubre" ||
+      pathname === "/events" ||
+      pathname === "/atractivos" ||
+      pathname === "/audioguias" ||
+      pathname === "/rutas" ||
+      pathname === "/planes" ||
+      pathname === "/blog"
       ? "#354999"
       : "#F1F1F1";
 
@@ -702,13 +702,13 @@ const Header = ({ navigation, route, options }) => {
     <View style={[styles.container, { backgroundColor }]}>
       {menuModal()}
       {pathname === "/" ||
-      pathname === "/descubre" ||
-      pathname === "/events" ||
-      pathname === "/rutas" ||
-      pathname === "/atractivos" ||
-      pathname === "/audioguias" ||
-      pathname === "/blog" ||
-      pathname === "/planes" ? (
+        pathname === "/descubre" ||
+        pathname === "/events" ||
+        pathname === "/rutas" ||
+        pathname === "/atractivos" ||
+        pathname === "/audioguias" ||
+        pathname === "/blog" ||
+        pathname === "/planes" ? (
         <IconSvg
           width="100"
           height="50"
@@ -738,7 +738,7 @@ const Header = ({ navigation, route, options }) => {
             <View>
               <Image
                 source={{
-                  uri: "https://visitbogota.co/chatbot/sticker/asisstant2.webp",
+                  uri: "https://visitbogota.co/chatbot/sticker/asisstant3.webp",
                 }}
                 style={{
                   width: 40,
@@ -801,13 +801,13 @@ const Header = ({ navigation, route, options }) => {
             }}
           >
             {pathname === "/" ||
-            pathname === "/descubre" ||
-            pathname === "/events" ||
-            pathname === "/rutas" ||
-            pathname === "/blog" ||
-            pathname === "/atractivos" ||
-            pathname === "/audioguias" ||
-            pathname === "/planes" ? (
+              pathname === "/descubre" ||
+              pathname === "/events" ||
+              pathname === "/rutas" ||
+              pathname === "/blog" ||
+              pathname === "/atractivos" ||
+              pathname === "/audioguias" ||
+              pathname === "/planes" ? (
               <IconSvg
                 width="30"
                 height="20"
@@ -830,26 +830,26 @@ const Header = ({ navigation, route, options }) => {
                   router.back();
                 } else {
                   pathname === "/" ||
-                  pathname === "/descubre" ||
-                  pathname === "/events" ||
-                  pathname === "/rutas" ||
-                  pathname === "/atractivos" ||
-                  pathname === "/audioguias" ||
-                  pathname === "/blog" ||
-                  pathname === "/planes"
+                    pathname === "/descubre" ||
+                    pathname === "/events" ||
+                    pathname === "/rutas" ||
+                    pathname === "/atractivos" ||
+                    pathname === "/audioguias" ||
+                    pathname === "/blog" ||
+                    pathname === "/planes"
                     ? router.push("search")
                     : router.push(pathname.split("/")[1]);
                 }
               }}
             >
               {pathname === "/" ||
-              pathname === "/descubre" ||
-              pathname === "/events" ||
-              pathname === "/rutas" ||
-              pathname === "/blog" ||
-              pathname === "/atractivos" ||
-              pathname === "/audioguias" ||
-              pathname === "/planes" ? (
+                pathname === "/descubre" ||
+                pathname === "/events" ||
+                pathname === "/rutas" ||
+                pathname === "/blog" ||
+                pathname === "/atractivos" ||
+                pathname === "/audioguias" ||
+                pathname === "/planes" ? (
                 <IconSvg
                   width="30"
                   height="20"
@@ -868,13 +868,13 @@ const Header = ({ navigation, route, options }) => {
 
         <Pressable onPress={openModal} style={{ padding: 10 }}>
           {pathname === "/" ||
-          pathname === "/descubre" ||
-          pathname === "/events" ||
-          pathname === "/rutas" ||
-          pathname === "/atractivos" ||
-          pathname === "/audioguias" ||
-          pathname === "/blog" ||
-          pathname === "/planes" ? (
+            pathname === "/descubre" ||
+            pathname === "/events" ||
+            pathname === "/rutas" ||
+            pathname === "/atractivos" ||
+            pathname === "/audioguias" ||
+            pathname === "/blog" ||
+            pathname === "/planes" ? (
             <IconSvg
               width="30"
               height="20"

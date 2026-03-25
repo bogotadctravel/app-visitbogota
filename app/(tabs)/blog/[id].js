@@ -70,16 +70,22 @@ const SingleBlog = () => {
 
   React.useEffect(() => {
     getSingleBlog();
-  }, []);
+  }, [id, actualLanguage]);
 
   if (!blog) {
     return <PreloaderComponent />;
   }
-  const adjustImageUrls = (htmlContent) => {
-    console.log(htmlContent);
 
-    const baseUrl = "https://files.visitbogota.co";
-    return htmlContent.replace(/src="\/drpl/g, `src="${baseUrl}`);
+  // --- SOLUCIÓN PARA LAS URLs DE LAS IMÁGENES ---
+  const adjustImageUrls = (htmlContent) => {
+    // Busca exactamente "/sites/default/files/" y lo reemplaza por la ruta completa en la API
+    let html = htmlContent.replace(
+      /\/sites\/default\/files\//g,
+      "https://files.visitbogota.co/sites/default/files/"
+    );
+
+    return html;
+
   };
   const transformedHtml = transformIframesToWebViews(blog.body);
   function decodeSpecialChars(str) {
@@ -99,6 +105,7 @@ const SingleBlog = () => {
       .replace(/&reg;/g, "®")
       .replace(/&trade;/g, "™");
   }
+
   const source = {
     html: adjustImageUrls(transformedHtml),
   };
@@ -121,7 +128,10 @@ const SingleBlog = () => {
       fontSize: 16,
       marginBottom: 15,
     },
+
   };
+
+  const availableWidth = windowWidth - 40;
 
   const renderersProps = {
     img: {
@@ -136,9 +146,8 @@ const SingleBlog = () => {
           height: windowWidth - 120,
         }}
         source={{
-          uri: `https://files.visitbogota.co${
-            blog.field_cover_image ? blog.field_cover_image : "/img/noimg.png"
-          }`,
+          uri: `https://files.visitbogota.co${blog.field_cover_image ? blog.field_cover_image : "/img/noimg.png"
+            }`,
         }}
       >
         <View
@@ -169,10 +178,10 @@ const SingleBlog = () => {
       <RenderHTML
         baseStyle={{ paddingHorizontal: 20 }}
         renderersProps={renderersProps}
-        contentWidth={windowWidth}
         source={source}
         tagsStyles={tagsStyles}
         renderers={renderers}
+        contentWidth={availableWidth}
       />
     </ScrollView>
   );

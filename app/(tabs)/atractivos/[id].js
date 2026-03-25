@@ -84,6 +84,7 @@ const SingleAtractivo = () => {
     uri: `https://files.visitbogota.co${img.trim()}`,
     alt: atractivo.field_galery_1?.split(",")[index] || "",
   }));
+
   return (
     <ScrollView>
       <View
@@ -140,9 +141,9 @@ const SingleAtractivo = () => {
             style={{ flexDirection: "row", gap: 15, alignItems: "center" }}
           >
             {isPlaying ? (
-              <AntDesign name="pausecircleo" size={24} color="#354999" />
+              <AntDesign name="pause-circle" size={24} color="#354999" />
             ) : (
-              <AntDesign name="playcircleo" size={24} color="#354999" />
+              <AntDesign name="play-circle" size={24} color="#354999" />
             )}
             <Text style={styles.text}>Escuchar reseña en audio</Text>
           </Pressable>

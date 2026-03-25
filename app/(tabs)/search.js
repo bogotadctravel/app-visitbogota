@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   View,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   FlatList,
   Keyboard,
   ImageBackground,
+  ScrollView, // <-- Nuevo import
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { fetchBogotaDrplV2 } from "../../src/api/imperdibles";
@@ -27,17 +28,34 @@ export default function Page() {
   const [viewResponse, setViewResponse] = React.useState(false);
   const [searchResults, setSearchResults] = React.useState([]);
 
+  // 1. Nuevo estado para el tab activo
+  const [activeTab, setActiveTab] = React.useState("Todos");
+
   const searchBogota = async () => {
     if (searchValue) {
       const data = await fetchBogotaDrplV2(
-        `/search/${searchValue}`,
-        actualLanguage
+        `/search/all`,
+        actualLanguage,
+        { keys: searchValue }
       );
       setSearchResults(data);
       setViewResponse(true);
+      setActiveTab("Todos"); // Reiniciar al tab "Todos" en cada nueva búsqueda
       Keyboard.dismiss();
     }
   };
+
+  // 2. Extraer tipos únicos de los resultados para crear los Tabs dinámicamente
+  const availableTabs = useMemo(() => {
+    const types = searchResults.map(item => item.type);
+    return ["Todos", ...new Set(types)];
+  }, [searchResults]);
+
+  // 3. Filtrar los resultados basado en el tab activo
+  const filteredResults = useMemo(() => {
+    if (activeTab === "Todos") return searchResults;
+    return searchResults.filter(item => item.type === activeTab);
+  }, [activeTab, searchResults]);
 
   return (
     <ImageBackground
@@ -61,6 +79,7 @@ export default function Page() {
               marginBottom: 20,
               alignItems: "center",
               backgroundColor: "#F1F1F1",
+              borderRadius: 8, // <-- Moví el border radius aquí para que cubra todo el input unificado
             }}
           >
             <View
@@ -94,28 +113,8 @@ export default function Page() {
               placeholderTextColor="#000"
             />
           </View>
-          {/* <Pressable
-          onPress={searchBogota}
-          style={{
-            backgroundColor: "#FFF",
-            
-            paddingVertical: 8,
-            marginBottom: 20,
-            paddingHorizontal: 16,
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              color: "#354999",
-              fontSize: 18,
-              fontFamily: "MuseoSans_500",
-            }}
-          >
-            {wordsLanguage[actualLanguage][14]}
-          </Text>
-        </Pressable> */}
         </View>
+
         {viewResponse && (
           <Text
             style={{
@@ -123,24 +122,63 @@ export default function Page() {
               fontFamily: "MuseoSans_500",
               textAlign: "center",
               color: "#FFF",
-              marginBottom: 30,
+              marginBottom: 15, // Reduje un poco el margen para que quepan los tabs
             }}
           >
             {wordsLanguage[actualLanguage][15]} "{searchValue}"
           </Text>
         )}
 
+        {/* 4. Interfaz de los Tabs */}
+        {viewResponse && searchResults.length > 0 && (
+          <View style={{ height: 40, marginBottom: 20 }}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20 }}
+            >
+              {availableTabs.map((tab, index) => (
+                <Pressable
+                  key={index}
+                  onPress={() => setActiveTab(tab)}
+                  style={{
+                    backgroundColor: activeTab === tab ? "#354999" : "#FFF",
+                    paddingHorizontal: 20,
+                    paddingVertical: 8,
+                    borderRadius: 20,
+                    marginRight: 10,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: activeTab === tab ? "#FFF" : "#354999",
+                      fontFamily: "MuseoSans_500",
+                      fontSize: 14,
+                    }}
+                  >
+                    {/* Aquí puedes mapear el nombre del tab si lo prefieres, e.g., "PB - Ofertas" a "Ofertas" */}
+                    {tab === "PB - Ofertas" ? "Ofertas" : tab}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+          </View>
+        )}
+
         {viewResponse && (
           <FlatList
             numColumns={2}
-            style={{ marginBottom: 30 }}
+            style={{ marginBottom: 30, width: "100%" }}
             contentContainerStyle={{
               overflow: "hidden",
+              paddingHorizontal: 10, // Añadí padding general a la lista para que se vea mejor centrada
             }}
             ItemSeparatorComponent={() => (
               <View style={{ paddingHorizontal: 2 }} />
             )}
-            data={searchResults}
+            data={filteredResults} // <-- Pasamos la lista filtrada, no la original
             keyExtractor={(item) => item.nid}
             fadingEdgeLength={15}
             renderItem={({ item }) => {
@@ -156,16 +194,12 @@ export default function Page() {
                         return router.push(`(tabs)/planes/${item.nid}`);
                       case "Atractivo":
                         return router.push(`(tabs)/atractivos/${item.nid}`);
-
                       case "Alrededor":
                         return router.push(`(tabs)/atractivos/${item.nid}`);
-
                       case "Artículo":
                         return router.push(`(tabs)/blog/${item.nid}`);
-
                       case "Eventos":
                         return router.push(`(tabs)/events/${item.nid}`);
-
                       default:
                         router.push("");
                     }
@@ -178,28 +212,23 @@ export default function Page() {
                         return "Oferta";
                       case "Atractivo":
                         return "Atractivo";
-
                       case "Alrededor":
                         return "Más allá de Bogota";
-
                       case "Artículo":
                         return "Blog";
-
                       case "Eventos":
                         return "Evento";
-
                       default:
                         return "";
                     }
                   })()}
-                  image={`https://files.visitbogota.co${
-                    item.field_imagen_listado_events ||
+                  image={`https://files.visitbogota.co${item.field_imagen_listado_events ||
                     item.field_img_portal ||
                     item.field_cover_image ||
                     item.field_pb_oferta_img_listado ||
                     item.field_image ||
-                    "/img/noimg.png" // Ruta de una imagen de respaldo en caso de que todos los campos estén vacíos
-                  }`}
+                    "/img/noimg.png"
+                    }`}
                 />
               );
             }}
@@ -214,6 +243,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start", // <-- Cambié esto de center a flex-start para que el buscador quede arriba y fluya el contenido
   },
 });

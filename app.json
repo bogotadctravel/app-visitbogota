@@ -5,7 +5,6 @@
     "version": "3.4.3",
     "orientation": "portrait",
     "scheme": "com.idt.bogota-app",
-    "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -60,7 +59,8 @@
       "expo-video",
       "expo-web-browser",
       "expo-audio",
-      "expo-asset"
+      "expo-asset",
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true

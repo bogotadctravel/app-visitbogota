@@ -37,7 +37,7 @@ const SingleRutas = () => {
 
   React.useEffect(() => {
     const getSingleEvents = async () => {
-      const data = await fetchBogotaDrplV2(`/rt/${id}`, actualLanguage);
+      const data = await fetchBogotaDrplV2(`/rt-single/${id}`, actualLanguage);
       setEvents(data[0]);
     };
     getSingleEvents();
@@ -80,9 +80,8 @@ const SingleRutas = () => {
           height: windowWidth - 120,
         }}
         source={{
-          uri: `https://files.visitbogota.co${
-            events.field_thumbnail ? events.field_thumbnail : "/img/noimg.png"
-          }`,
+          uri: `https://files.visitbogota.co${events.field_thumbnail ? events.field_thumbnail : "/img/noimg.png"
+            }`,
         }}
       ></ImageBackground>
       <View
