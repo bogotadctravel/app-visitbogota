@@ -6,19 +6,15 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "environment": "development",
       "distribution": "internal",
-      "node": "20.18.0"
+      "node": "20.19.4"
     },
     "preview": {
-      "environment": "preview",
       "distribution": "internal",
-      "node": "20.18.0"
+      "node": "20.19.4"
     },
     "production": {
-      "environment": "production",
-      "autoIncrement": true,
-      "node": "20.18.0"
+      "node": "20.19.4"
     }
   },
   "submit": {
